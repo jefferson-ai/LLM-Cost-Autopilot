@@ -1,6 +1,10 @@
 import os
 from openai import OpenAI
 
+class
+providerConfigError(RuntimeError):
+
+
 
 def get_client() -> OpenAI:
     return OpenAI(
