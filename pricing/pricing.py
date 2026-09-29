@@ -12,7 +12,7 @@ PRICING: dict[str, dict[str, float]] = {
 }
 
 
-def estimate_cost(provider: str, model: str, usage: dict) -> float:
+def estimate_cost(provider: str, model: str, usage: dict) -> float | None:
     """Estimate the cost of a completion call in USD.
 
     Args:
@@ -25,7 +25,7 @@ def estimate_cost(provider: str, model: str, usage: dict) -> float:
     """
     rates = PRICING.get(provider, {}).get(model)
     if not rates:
-        return 0.0  # Unknown model — cost tracking not available yet
+        return None # Unknown model — cost tracking not available yet
 
     input_cost = (usage["prompt_tokens"] / 1_000_000) * rates["input"]
     output_cost = (usage["completion_tokens"] / 1_000_000) * rates["output"]

@@ -11,7 +11,7 @@ def test_estimate_cost_openai_gpt4o_mini():
 def test_estimate_cost_unknown_model_returns_zero():
     usage = {"prompt_tokens": 1000, "completion_tokens": 500}
     cost = estimate_cost("openai", "gpt-99-unknown", usage)
-    assert cost == 0.0
+    assert cost is None
 
 
 def test_estimate_cost_groq():
