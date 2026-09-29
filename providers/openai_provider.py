@@ -2,8 +2,18 @@ import os
 from openai import OpenAI
 
 
+
+class ProviderConfigError(RuntimeError):
+    """Raised when a required provider environment variable is missing."""
+
+
 def get_client() -> OpenAI:
-    return OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    key = os.environ.get("OPENAI_API_KEY")
+    if not key:
+        raise ProviderConfigError(
+            "OPENAI_API_KEY is not set. Add it to your .env file."
+        )
+    return OpenAI(api_key=key)
 
 
 def complete(prompt: str, model: str = "gpt-4o-mini") -> dict:

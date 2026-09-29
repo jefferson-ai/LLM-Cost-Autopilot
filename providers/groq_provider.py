@@ -1,16 +1,18 @@
 import os
 from openai import OpenAI
 
-class
-providerConfigError(RuntimeError):
-
+class ProviderConfigError(RuntimeError):
+    """Raised when a required provider environment variable is missing."""
 
 
 def get_client() -> OpenAI:
-    return OpenAI(
-        api_key=os.environ["GROQ_API_KEY"],
-        base_url="https://api.groq.com/openai/v1",
-    )
+    key = os.environ.get("GROQ_API_KEY")
+    if not key:
+        raise ProviderConfigError(
+            "GROQ_API_KEY is not set. Add it to your .env file."
+        )
+    return OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1")
+
 
 
 def complete(prompt: str, model: str = "openai/gpt-oss-20b") -> dict:

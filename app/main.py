@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 from router.router import route
 from pricing.pricing import estimate_cost
+from providers.groq_provider import ProviderConfigError
 
 
 app = FastAPI(
@@ -37,6 +38,11 @@ def chat(request: ChatRequest):
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except ProviderConfigError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Provider error: {e}")
+
 
     cost = estimate_cost(
         provider=result["provider"],
