@@ -6,7 +6,7 @@ load_dotenv()
 from router.router import route
 from pricing.pricing import estimate_cost
 
-result = route(prompt="Say hello in one sentence.", provider="groq")
+result = route(prompt="HI.", provider="groq")
 
 cost = estimate_cost(
     provider=result["provider"],
