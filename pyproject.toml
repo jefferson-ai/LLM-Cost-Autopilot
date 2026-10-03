@@ -1,10 +1,10 @@
 [project]
 name = "llm-cost-autopilot"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Multi-provider LLM router with per-call cost estimation"
 readme = "README.md"
 authors = [
-    { name = "Jeffersone", email = "jeffersonadda123@gmail.com" }
+    { name = "Jefferson", email = "jeffersonadda123@gmail.com" }
 ]
 requires-python = ">=3.13"
 dependencies = [
@@ -15,11 +15,17 @@ dependencies = [
 ]
 
 [project.scripts]
-llm-cost-autopilot = "llm_cost_autopilot:main"
+llm-cost-autopilot = "app.main:start"
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [dependency-groups]
 dev = [

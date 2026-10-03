@@ -43,7 +43,6 @@ def chat(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Provider error: {e}")
 
-
     cost = estimate_cost(
         provider=result["provider"],
         model=result["model"],
@@ -57,3 +56,8 @@ def chat(request: ChatRequest):
         "provider": result["provider"],
         "estimated_cost_usd": cost,
     }
+
+def start() -> None:
+    """Entry point for the `llm-cost-autopilot` CLI command."""
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=False)
